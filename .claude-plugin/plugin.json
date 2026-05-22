@@ -1,0 +1,19 @@
+{
+  "name": "claude-usage",
+  "version": "0.1.0",
+  "description": "Claude Code usage report and analysis. Scans your ~/.claude/projects/ JSONL transcripts and produces a per-project + per-prompt breakdown of tokens, model mix, and estimated cost. Includes a /usage-report slash command (HTML report) and an analyzer skill that lets you ask 'what's driving my Claude spend' in natural language.",
+  "author": {
+    "name": "Manoj Pillai",
+    "email": "manu.fwd@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": ["telemetry", "usage", "cost", "reporting", "analytics", "claude-code"],
+  "homepage": "https://github.com/manojpillai/claude-usage",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manojpillai/claude-usage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manojpillai/claude-usage/issues"
+  }
+}
