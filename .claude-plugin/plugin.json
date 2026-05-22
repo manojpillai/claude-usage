@@ -9,11 +9,5 @@
   "license": "MIT",
   "keywords": ["telemetry", "usage", "cost", "reporting", "analytics", "claude-code"],
   "homepage": "https://github.com/manojpillai/claude-usage",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manojpillai/claude-usage.git"
-  },
-  "bugs": {
-    "url": "https://github.com/manojpillai/claude-usage/issues"
-  }
+  "repository": "https://github.com/manojpillai/claude-usage.git"
 }
