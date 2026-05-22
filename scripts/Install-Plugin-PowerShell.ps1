@@ -35,7 +35,7 @@ Write-Host "  Marketplace root: $MarketplaceRoot"
 $null = New-Item -ItemType Directory -Force $manifestDir
 $manifestJson = ConvertTo-Json -Depth 5 @{
     name    = 'local'
-    owner   = @{ name = 'Assurant' }
+    owner   = @{ name = 'Manoj Pillai' }
     plugins = @(@{ name = 'claude-usage'; source = './claude-usage' })
 }
 $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

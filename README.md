@@ -168,7 +168,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Get-ClaudeUsage.ps1
 
 **Windows** — add this one-liner to your PowerShell `$PROFILE` so `claude-usage` works from any directory:
 ```powershell
-function claude-usage { & 'C:\CodeRepo\ClaudeUsage\scripts\Get-ClaudeUsage.ps1' @args }
+function claude-usage { & 'C:\path\to\claude-usage\scripts\Get-ClaudeUsage.ps1' @args }
 ```
 
 **macOS / Linux** — add an alias to your `~/.zshrc` or `~/.bashrc`:
