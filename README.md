@@ -4,47 +4,40 @@ Local-only Claude Code plugin that scans your `~/.claude/projects/` session tran
 - A static HTML report (per-project + per-model + daily + per-prompt breakdown), or
 - A natural-language analysis in chat ("what's driving my Claude spend") via the bundled skill.
 
-## Install as a Claude Code plugin
+## Prerequisites
 
-Claude Code's `plugin install` command only works with marketplace-registered plugins — it can't point at a bare local folder. The install script below handles the one-time setup automatically.
+| Platform | What you need |
+|---|---|
+| **Windows** | PowerShell 5.1 (built in) — nothing to install |
+| **macOS** | PowerShell 7 — `brew install --cask powershell` |
+| **Linux** | PowerShell 7 — [install docs](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-linux) |
 
-### Option A — Run the install script (recommended)
+You also need Claude Code installed and at least one session in `~/.claude/projects/`.
 
-**Windows** — double-click `Install-Plugin.bat` in the repo root (bypasses execution policy automatically), or from a terminal:
+## Install
+
+```bash
+git clone https://github.com/manojpillai/claude-usage.git
+cd claude-usage
+```
+
+**Windows:**
 ```cmd
 Install-Plugin.bat
 ```
 
-**macOS / Linux** (PowerShell 7):
+**macOS / Linux:**
 ```bash
 pwsh scripts/Install-Plugin-PowerShell.ps1
 ```
 
-The script:
-1. Creates a marketplace wrapper at `~/claude-plugins/` (a small folder that stays on disk).
-2. Links it to this plugin directory (junction on Windows, symlink on Mac/Linux).
-3. Registers the marketplace with Claude Code.
-4. Installs `claude-usage@local` for your user account.
-
 Restart Claude Code after the script finishes.
 
-### Option B — From a zip / shared folder
+The script creates a local marketplace wrapper at `~/claude-plugins/`, links it to the cloned repo, and registers the plugin with Claude Code.
 
-If you received a zip that already includes the marketplace wrapper (a `.claude-plugin/marketplace.json` alongside the `claude-usage/` folder), extract it anywhere and run:
+### Troubleshooting: PowerShell permission error
 
-```powershell
-# Replace with the path you extracted to:
-claude plugin marketplace add C:\path\to\extracted-folder --scope user
-claude plugin install claude-usage@local --scope user
-```
-
-Then restart Claude Code.
-
-### If the skill or command is blocked by a permission error
-
-If you see **"Invokes PowerShell, which is in the user's deny rules list"**, your Claude Code settings explicitly deny PowerShell commands. The plugin's `allowed-tools` declaration cannot override a user-level deny rule — you must add an explicit allow.
-
-Open `~/.claude/settings.json` (`C:\Users\<you>\.claude\settings.json` on Windows) and add:
+If you see **"Invokes PowerShell, which is in the user's deny rules list"**, add this to `~/.claude/settings.json`:
 
 ```json
 "permissions": {
@@ -52,19 +45,13 @@ Open `~/.claude/settings.json` (`C:\Users\<you>\.claude\settings.json` on Window
 }
 ```
 
-If a `permissions` block already exists, just add the two entries to the existing `allow` array. Save the file and restart Claude Code — no reinstall needed.
+### Update / Uninstall
 
-### Updating
+```bash
+git pull                            # get latest
+claude plugin update claude-usage   # reload
 
-After pulling new changes:
-```
-claude plugin update claude-usage
-```
-
-### Uninstalling
-
-```
-claude plugin uninstall claude-usage
+claude plugin uninstall claude-usage  # remove
 ```
 
 ---
@@ -94,18 +81,6 @@ Claude Code writes a JSONL transcript of every session to `~/.claude/projects/`.
 - **XSS-hardened report.** All user-controlled strings (prompt text, project names, model names) are HTML-escaped; embedded JSON is escaped to prevent `</script>` breakout; a strict `Content-Security-Policy` meta tag blocks any external resource the report could try to load.
 
 `.gitignore` excludes both `*.html` outputs from version control. If you don't want the detail report on disk at all, run with `-NoDetail` and only `report.html` is written.
-
-## Requirements
-
-| Platform | PowerShell |
-|---|---|
-| **Windows** | PowerShell 5.1 (built in) or PowerShell 7 |
-| **macOS** | PowerShell 7 — `brew install --cask powershell` |
-| **Linux** | PowerShell 7 — [Microsoft install docs](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-linux) |
-
-Plus a populated `~/.claude/projects/` directory (i.e. you've used Claude Code at least once).
-
-No `pip`, no `npm`, no admin rights.
 
 ## Usage
 
